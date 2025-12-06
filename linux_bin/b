@@ -49,7 +49,7 @@ set exe_file (string replace -r '\.cpp$' '' $cpp_file)
 
 set pcm_file (dirname (status --current-filename))/std.pcm
 if not test -f "$pcm_file"
-    echo "Error: Precompiled module file 'std.pcm' not found at $pcm_file" >&2
+    echo "Error: Precompiled module file 'std.pcm' not found at $pcm_file. Please reference README for initial setup." >&2
     exit 1
 end
 
