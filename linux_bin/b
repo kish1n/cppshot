@@ -1,0 +1,86 @@
+#!/usr/bin/env fish
+
+# Parse arguments
+set cpp_file ""
+set input_file ""
+
+for arg in $argv
+    if test -z "$cpp_file"
+        set cpp_file "$arg"
+    else
+        set input_file "$arg"
+    end
+end
+
+# Check if cpp_file provided
+if test -z "$cpp_file"
+    echo "Error: No C++ file provided" >&2
+    echo "Usage: b <file> [input_file]" >&2
+    exit 1
+end
+
+# Check if clang++ is available
+if not type -q clang++
+    echo "Error: clang++ not found on PATH!" >&2
+    exit 1
+end
+
+# Append .cpp if not present
+if not string match -q "*.cpp" $cpp_file
+    set cpp_file "$cpp_file.cpp"
+end
+
+# Check if C++ file exists
+if not test -f "$cpp_file"
+    echo "Error: C++ file '$cpp_file' not found!" >&2
+    exit 1
+end
+
+# Default input file to "in" if not provided and it exists
+if test -z "$input_file"; and test -f "in"
+    set input_file "in"
+end
+
+# Define output files
+set output_file "out"
+set exe_file (string replace -r '\.cpp$' '' $cpp_file)
+
+### COMPILATION ###
+
+set pcm_file (dirname (status --current-filename))/std.pcm
+if not test -f "$pcm_file"
+    echo "Error: Precompiled module file 'std.pcm' not found at $pcm_file" >&2
+    exit 1
+end
+
+set compile_options -stdlib=libc++ -Wall -Wextra -Wpedantic -Wshadow -std=c++23 -O2 -fmodule-file=std=$pcm_file $pcm_file
+
+set start_time (date +%s.%N)
+echo "Compiling '$cpp_file' with clang++..."
+
+if not clang++ $cpp_file $compile_options -o $exe_file
+    echo "Compilation failed!" >&2
+    exit 1
+end
+
+set compile_time (math (date +%s.%N) - $start_time)
+echo "Compilation successful: $exe_file"
+printf "Compilation time: %.2f seconds\n" $compile_time
+
+### EXECUTION ###
+
+set start_time (date +%s.%N)
+echo "Running '$exe_file'..."
+
+if test -f "$input_file"
+    echo "Using input from '$input_file' and saving output to '$output_file'."
+    cat $input_file | ./$exe_file | tee $output_file
+else
+    echo "Running interactively and saving output to '$output_file'."
+    ./$exe_file | tee $output_file
+end
+
+set run_time (math (date +%s.%N) - $start_time)
+printf "Execution time: %.2f seconds\n" $run_time
+
+echo "Execution complete. Output saved to '$output_file'."

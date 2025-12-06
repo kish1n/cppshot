@@ -15,7 +15,7 @@ end
 # Check if filename provided
 if test -z "$filename"
     echo "Error: No filename provided" >&2
-    echo "Usage: n.fish <filename> [-m]" >&2
+    echo "Usage: n <filename> [-m]" >&2
     exit 1
 end
 
@@ -23,7 +23,7 @@ end
 set script_dir (dirname (status --current-filename))
 
 # Choose template
-set template_name (test $use_m = true; and echo "template_m.cpp"; or echo "template.cpp")
+set template_name (test $use_m = true; and echo "template_std.cpp"; or echo "template.cpp")
 set template_file "$script_dir/../templates/$template_name"
 set target_file "$PWD/$filename.cpp"
 
