@@ -4,7 +4,7 @@ param (
 )
 
 # Get the directory of the script
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$scriptDir = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
 # Choose template based on -v switch
 $templateName = if ($v) { "template_v.cpp" } else { "template.cpp" }
