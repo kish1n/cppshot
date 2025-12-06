@@ -7,11 +7,12 @@ It's primary goals are:
 
 
 Linux Setup:
-These tools depends on the fish shell, clang++ and libc++. The BMI for the std module must be built once so it can be referenced in future builds. It can be built through: `clang++ -Wall -Wextra -Wpedantic -Wshadow -std=c++23 -O2 /usr/share/libc++/v1/std.cppm --precompile -o linux_bin/std.pcm -stdlib=libc++`. To create new files with import std, make sure to pass `-m` option when creating a new file.
+These tools depends on the fish shell, clang++ and libc++. The `bin/` folder needs to be added to the PATH env var. This can be done with `fish_add_path /your/path/to/cppshot/bin/`. The BMI for the std module must be built once so it can be referenced in future builds. It can be built through: `clang++ -Wall -Wextra -Wpedantic -Wshadow -std=c++23 -O2 /usr/share/libc++/v1/std.cppm --precompile -o linux_bin/std.pcm -stdlib=libc++`.
 
 Example Flow:
-`n -m A`: creates a template named A.cpp that uses `import std;` for faster compilation.
+`n -m A`: creates a c++ file named A.cpp that uses the `import std;` template for faster compilation.
 `b A`: build and execute A, by default, taking input from a file `in` if it exists in the current directory.
 
 
-The Windows scripts are not actively maintained and are use-at-your-own-risk.
+Performance:
+Using the above example flow, the compilation time is 0.04 seconds of the template. When using the template with regular stdlib header files, compilation time is 0.42 seconds on my machine. Recorded on CachyOS with AMD Ryzen 9950X3D CPU @ 5.7GHZ. 
