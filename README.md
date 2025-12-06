@@ -10,8 +10,8 @@ Linux Setup:
 The build system depends on the fish shell, clang++ and libc++. The `bin/` folder needs to be added to the PATH env var. This can be done with `fish_add_path /your/path/to/cppshot/bin/`. The BMI for the std module must be built once so it can be referenced in future builds. It can be built through: `clang++ -Wall -Wextra -Wpedantic -Wshadow -std=c++23 -O2 /usr/share/libc++/v1/std.cppm --precompile -o linux_bin/std.pcm -stdlib=libc++`.
 
 Example Flow:
-`n -m A`: creates a c++ file named A.cpp that uses the `import std;` template for faster compilation.
-`b A`: build and execute A, by default, taking input from a file `in` if it exists in the current directory.
+1. `n -m A`: creates a c++ file named A.cpp that uses the `import std;` template for faster compilation.
+2. `b A`: build and execute A, by default, taking input from a file `in` if it exists in the current directory.
 
 
 Performance:
