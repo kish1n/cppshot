@@ -1,7 +1,7 @@
 # cppshot
 cppshot is a c++ build system optimized for single file workloads. 
 It's primary goals are:
-- minimal compile time through integration with C++ Modules (import std;) and precompiled headers
+- minimal compile time through integration with C++ Modules (import std;)
 - maximal safety through default enabling of often overlooked compiler options for static analysis 
 - maximal usability through simple user interface (`b <file>` to build and run, `n <file>` to create a new file with a template)
 

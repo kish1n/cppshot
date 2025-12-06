@@ -1,1 +1,0 @@
-The Windows scripts are not actively maintained and are use-at-your-own-risk.
