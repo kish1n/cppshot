@@ -15,4 +15,4 @@ Example Flow:
 
 
 Performance:
-Using the above example flow, the compilation time is 0.04 seconds of the template. When using the template with regular stdlib header files, compilation time is 0.42 seconds, or about 10.5x slower. Recorded on CachyOS with AMD Ryzen 9950X3D CPU @ 5.7GHZ. 
+Using the above example flow, the compilation time is 0.04 seconds for the template. When using the template with regular stdlib header files, compilation time is 0.42 seconds, or about 10.5x slower. Recorded on CachyOS with AMD Ryzen 9950X3D CPU @ 5.7GHZ. 
