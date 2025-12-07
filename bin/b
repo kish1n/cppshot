@@ -74,10 +74,10 @@ echo "Running '$exe_file'..."
 
 if test -f "$input_file"
     echo "Using input from '$input_file' and saving output to '$output_file'."
-    cat $input_file | ./$exe_file | tee $output_file
+    cat $input_file | $exe_file | tee $output_file
 else
     echo "Running interactively and saving output to '$output_file'."
-    ./$exe_file | tee $output_file
+    $exe_file | tee $output_file
 end
 
 set run_time (math (date +%s.%N) - $start_time)
